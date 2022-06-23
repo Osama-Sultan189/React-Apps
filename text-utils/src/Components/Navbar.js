@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 export default function Navbar(props) {
   return (
     <nav className="navbar navbar-expand-lg  navbar-dark bg-dark">
@@ -31,6 +31,17 @@ export default function Navbar(props) {
               </a>
             </li>
           </ul>
+          <div class="form-check form-switch  mx-3">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+            />
+            <label class={`form-check-label text-${props.mode}`} htmlFor="flexSwitchCheckDefault">
+              Enable {props.mode} mode
+            </label>
+          </div>
           <form className="d-flex" role="search">
             <input
               className="form-control me-2"
@@ -48,11 +59,11 @@ export default function Navbar(props) {
   );
 }
 
-Navbar.propTypes={
-    title:PropTypes.string.isRequired,
-    aboutText:PropTypes.string.isRequired
-}
-Navbar.defaultProps={
-    title:"Company Name",
-    aboutText:"About Page"
-}
+Navbar.propTypes = {
+  title: PropTypes.string.isRequired,
+  aboutText: PropTypes.string.isRequired,
+};
+Navbar.defaultProps = {
+  title: "Company Name",
+  aboutText: "About Page",
+};
