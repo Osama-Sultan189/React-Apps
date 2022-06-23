@@ -3,25 +3,53 @@ import PropTypes from 'prop-types'
 
 
 export default function TextForm(props) {
-    const [text, setText] = useState("Enter Text Here");
+    const [text, setText] = useState("");
     const onclickUp=() => {
         setText(text.toUpperCase());
     }
-    const onclickLow=() => {
+    const onclickDown=() => {
         setText(text.toLowerCase());
+    }
+    const clearText=() => {
+        setText(    "");
     }
     const onchange=(e) => {
         setText(e.target.value);
     }
+    const handleCopy=() => {
+        var t1=document.getElementById("textArea");
+        t1.select();
+        navigator.clipboard.writeText(t1.value);    
+    }
+    const handleSpaces=() => {
+       let newText=text.split(/[ ]+/);
+       setText(newText.join(" ")); 
+    }
     return (
-        <div>
+        <>
+        <div className='container'>
             <div className="mb-3">
                 <label htmlFor="myTextBox" className="form-label">{props.heading}</label>
-                <textarea className="form-control" value={text} onChange={onchange} id="exampleFormControlTextarea1" rows="8"></textarea>
+                <textarea className="form-control" value={text} onChange={onchange} id="textArea" rows="8"></textarea>
             </div>
-            <button className='btn btn-primary' onClick={onclickUp}>Convert to UpperCase</button>
-           
+            <button className='btn btn-primary mx-1 my-1' onClick={onclickUp}>Convert to Upper Case</button>
+            <button className='btn btn-primary mx-1 my-1' onClick={onclickDown}>Convert to Lower Case</button>
+            <button className='btn btn-primary mx-1 my-1' onClick={clearText}>Click here to Clear Text</button>
+            <button className='btn btn-primary mx-1 my-1' onClick={handleCopy}>Copy Text</button>
+            <button className='btn btn-primary mx-1 my-1' onClick={handleSpaces}>Handle Extra Spaces</button>
         </div>
+        <div className='container my-2'>
+            <h3>Your Text Summary : </h3>
+            <p>
+                {text.length} characters {text.split(" ").length} words
+            </p>
+            <p>
+                {text.split(" ").length*0.008} minutes to read
+            </p>
+            <h3>Preview</h3>
+            <p>{text}</p>
+        </div>
+        </>
     )
 }
 
