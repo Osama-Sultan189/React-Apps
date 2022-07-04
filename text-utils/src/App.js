@@ -1,47 +1,73 @@
-import './App.css';
-import Navbar from './Components/Navbar';
-import TextForm from './Components/TextForm';
-import Alert from './Components/Alert';
-import React,{useState} from 'react'
+import "./App.css";
+import Navbar from "./Components/Navbar";
+import TextForm from "./Components/TextForm";
+import About from "./Components/About";
+import Alert from "./Components/Alert";
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState("light");
   const [alert, setAlert] = useState(null);
-  const showAlert = (message,type) => {
+  const showAlert = (message, type) => {
     setAlert({
       msg: message,
-      type: type
-    })
+      type: type,
+    });
     setTimeout(() => {
       setAlert(null);
     }, 1500);
-  }
+  };
   const toggleMode = () => {
-    if(mode === 'light'){
-      setMode('dark');
-      document.body.style.backgroundColor = '#042723';
-      document.body.style.color='white';
-      showAlert("Dark Mode has been Enabled","success");
+    if (mode === "light") {
+      setMode("dark");
+      document.body.style.backgroundColor = "#042723";
+      document.body.style.color = "white";
+      showAlert("Dark Mode has been Enabled", "success");
+    } else {
+      setMode("light");
+      document.body.style.backgroundColor = "white";
+      document.body.style.color = "black";
+      showAlert("Light Mode has been Enabled", "success");
     }
-    else{
-      setMode('light');
-      document.body.style.backgroundColor = 'white';
-      document.body.style.color='black';
-      showAlert("Light Mode has been Enabled","success");
-    }
-  }
+  };
   return (
     <>
-      <Navbar title="Text Utils" mode={mode} toggleMode={toggleMode} className="my-2" aboutText="About Us"/>
-      <Alert alert={alert}/>
-        <div>
-        <div className='container  my-3'>
-          <TextForm mode={mode}heading="Enter Your text here to analyze : "/>
+      <BrowserRouter>
+        <Navbar
+          title="Text Utils"
+          mode={mode}
+          toggleMode={toggleMode}
+          className="my-2"
+          aboutText="About Us"
+        />
+        <Alert alert={alert} />
+        <div className="container  my-3">
+          {/* <Routes>
+              <Route path="/">
+                <TextForm
+                  mode={mode}
+                  heading="Enter Your text here to analyze : "
+                />
+              </Route>
+              <Route path="/About">
+                <About />
+              </Route>
+            </Routes> */}
+          <Routes>
+            <Route path="/" element={<TextForm
+                  mode={mode}
+                  heading="Enter Your text here to analyze : "
+                />}>
+                  </Route>
+              <Route index element={<TextForm
+                  mode={mode}
+                  heading="Enter Your text here to analyze : "
+                />} />
+              <Route path="/about" element={<About />} />
+            
+          </Routes>
         </div>
-        {/* <div className='container my-3'>
-          <About/>
-        </div> */}
-          
-        </div>
+      </BrowserRouter>
     </>
   );
 }
