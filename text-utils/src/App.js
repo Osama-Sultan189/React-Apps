@@ -42,17 +42,6 @@ function App() {
         />
         <Alert alert={alert} />
         <div className="container  my-3">
-          {/* <Routes>
-              <Route path="/">
-                <TextForm
-                  mode={mode}
-                  heading="Enter Your text here to analyze : "
-                />
-              </Route>
-              <Route path="/About">
-                <About />
-              </Route>
-            </Routes> */}
           <Routes>
             <Route path="/" element={<TextForm
                   mode={mode}
